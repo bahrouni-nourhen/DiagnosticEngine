@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <cstdint>
-
+#include "diagnostic/ObdAdapter.h"
 
 #include "adapters/CanAdapter.h"
 #include "transport/IsoTpAdapter.h"
@@ -45,31 +45,21 @@ int main()
 
     // Exemple de requête OBD-II
     // Service 01 - PID 0C (Engine RPM)
-
-    std::vector<uint8_t> request =
-    {
-        0x02,
-        0x01,
-        0x0C
-    };
+// Création de la couche OBD-II
+ObdAdapter obd(isotp);
 
 
+// Lecture du PID RPM (0x0C)
 
-    // Envoi via ISO-TP
-
-    if(isotp.sendMessage(request))
-    {
-        std::cout 
-            << "[MAIN] ISO-TP message sent"
-            << std::endl;
-    }
+std::vector<uint8_t> response =
+    obd.readPID(0x0C);
 
 
-
-    // Réception réponse ECU
-
-    std::vector<uint8_t> response =
-        isotp.receiveMessage();
+std::cout
+    << "[MAIN] ECU Response size : "
+    << response.size()
+    << " bytes"
+    << std::endl;
 
 
 
