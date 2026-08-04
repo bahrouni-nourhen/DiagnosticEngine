@@ -3,24 +3,40 @@
 
 #include "IProtocolAdapter.h"
 
+#include <vector>
+#include <cstdint>
+
 
 class CanAdapter : public IProtocolAdapter
 {
 
 public:
 
+    // Constructeur
     CanAdapter();
 
+
+    // Destructeur
     ~CanAdapter() override;
 
 
-    bool connect() override;
+    // Ouverture de la communication CAN
+    bool open() override;
 
-    void disconnect() override;
 
-    bool sendRequest(const std::string& request) override;
+    // Fermeture de la communication CAN
+    void close() override;
 
-    std::string receiveResponse() override;
+
+    // Envoi d'une trame CAN
+    bool send(
+        const std::vector<uint8_t>& data
+    ) override;
+
+
+    // Réception d'une trame CAN
+    std::vector<uint8_t> receive() override;
+
 
 };
 

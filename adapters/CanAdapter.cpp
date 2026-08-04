@@ -1,5 +1,6 @@
 #include "CanAdapter.h"
 #include <iostream>
+#include <iomanip>
 
 
 // Constructeur
@@ -16,28 +17,43 @@ CanAdapter::~CanAdapter()
 }
 
 
-// Fonction de connexion au réseau CAN
-bool CanAdapter::connect()
+// Ouverture de la communication CAN
+bool CanAdapter::open()
 {
-    std::cout << "[CAN] Connection established" << std::endl;
+    std::cout << "[CAN] Communication opened"
+              << std::endl;
 
     return true;
 }
 
 
-// Fonction de déconnexion
-void CanAdapter::disconnect()
+// Fermeture de la communication CAN
+void CanAdapter::close()
 {
-    std::cout << "[CAN] Connection closed" << std::endl;
+    std::cout << "[CAN] Communication closed"
+              << std::endl;
 }
 
 
-// Envoi d'une requête CAN
-bool CanAdapter::sendRequest(const std::string& request)
+// Envoi d'une trame CAN
+bool CanAdapter::send(
+    const std::vector<uint8_t>& data
+)
 {
-    std::cout << "[CAN] Sending request : "
-              << request
-              << std::endl;
+    std::cout << "[CAN] Sending frame : ";
+
+    for(uint8_t byte : data)
+    {
+        std::cout 
+            << std::hex
+            << std::uppercase
+            << std::setw(2)
+            << std::setfill('0')
+            << static_cast<int>(byte)
+            << " ";
+    }
+
+    std::cout << std::endl;
 
 
     // Simulation d'un envoi réussi
@@ -45,14 +61,24 @@ bool CanAdapter::sendRequest(const std::string& request)
 }
 
 
-// Réception d'une réponse CAN
-std::string CanAdapter::receiveResponse()
+// Réception d'une trame CAN
+std::vector<uint8_t> CanAdapter::receive()
 {
-    std::cout << "[CAN] Receiving response..." 
+    std::cout << "[CAN] Receiving frame..."
               << std::endl;
 
 
     // Simulation d'une réponse ECU
-    // Exemple : réponse PID 0C (Engine RPM)
-    return "41 0C 1A F8";
+    // Réponse OBD-II PID 0C (Engine RPM)
+
+    std::vector<uint8_t> response =
+    {
+        0x41,
+        0x0C,
+        0x1A,
+        0xF8
+    };
+
+
+    return response;
 }

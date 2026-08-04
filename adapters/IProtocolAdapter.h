@@ -1,7 +1,8 @@
 #ifndef IPROTOCOLADAPTER_H
 #define IPROTOCOLADAPTER_H
 
-#include <string>
+#include <vector>
+#include <cstdint>
 
 
 class IProtocolAdapter
@@ -12,20 +13,22 @@ public:
     virtual ~IProtocolAdapter() = default;
 
 
-    // Établir la connexion avec le réseau/protocole
-    virtual bool connect() = 0;
+    // Ouverture de la communication
+    virtual bool open() = 0;
 
 
-    // Fermer la connexion
-    virtual void disconnect() = 0;
+    // Fermeture de la communication
+    virtual void close() = 0;
 
 
-    // Envoyer une requête de diagnostic
-    virtual bool sendRequest(const std::string& request) = 0;
+    // Envoi d'une trame brute
+    virtual bool send(
+        const std::vector<uint8_t>& data
+    ) = 0;
 
 
-    // Recevoir la réponse du véhicule
-    virtual std::string receiveResponse() = 0;
+    // Réception d'une trame brute
+    virtual std::vector<uint8_t> receive() = 0;
 
 
 };
