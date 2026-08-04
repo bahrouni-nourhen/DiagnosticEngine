@@ -2,7 +2,7 @@
 #include <vector>
 #include <cstdint>
 #include "encoder/ObdCommandEncoder.h"
-
+#include "decoder/ObdResponseDecoder.h"
 #include "adapters/CanAdapter.h"
 #include "transport/IsoTpAdapter.h"
 #include "models/CanFrame.h"
@@ -57,7 +57,38 @@ int main()
         return -1;
     }
 
+std::vector<uint8_t> rpmResponse =
+    {
+        0x41,
+        0x0C,
+        0x1A,
+        0xF8
+    };
 
+
+    DecodedParameter rpm =
+        ObdResponseDecoder::decode(rpmResponse);
+
+
+
+    std::cout
+        << "Parameter : "
+        << rpm.parameter
+        << std::endl;
+
+
+    std::cout
+        << "Value : "
+        << rpm.value
+        << " "
+        << rpm.unit
+        << std::endl;
+
+
+    std::cout
+        << "Status : "
+        << rpm.status
+        << std::endl;
 
     // ==========================
     // Couche ISO-TP

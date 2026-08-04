@@ -1,0 +1,48 @@
+{
+    "pids": [
+        {
+            "name": "ENGINE_RPM",
+            "pid": "0C",
+            "service": "01",
+            "unit": "RPM",
+            "bytes": 2,
+            "formula": "(256*A+B)/4"
+        },
+
+        {
+            "name": "VEHICLE_SPEED",
+            "pid": "0D",
+            "service": "01",
+            "unit": "km/h",
+            "bytes": 1,
+            "formula": "A"
+        },
+
+        {
+            "name": "ENGINE_COOLANT_TEMPERATURE",
+            "pid": "05",
+            "service": "01",
+            "unit": "C",
+            "bytes": 1,
+            "formula": "A-40"
+        },
+
+        {
+            "name": "INTAKE_AIR_TEMPERATURE",
+            "pid": "0F",
+            "service": "01",
+            "unit": "C",
+            "bytes": 1,
+            "formula": "A-40"
+        },
+
+        {
+            "name": "ENGINE_LOAD",
+            "pid": "04",
+            "service": "01",
+            "unit": "%",
+            "bytes": 1,
+            "formula": "A*100/255"
+        }
+    ]
+}
