@@ -6,64 +6,42 @@
 #include <cstdint>
 #include <string>
 
+#include "PidCatalog.h"
 
 
 struct DecodedParameter
 {
-
-    // Identifiant PID
-    uint8_t pid;
-
-
-    // Nom du paramètre
+    uint8_t     pid;
     std::string parameter;
-
-
-    // Valeur décodée
-    double value;
-
-
-    // Unité
+    double      value;
     std::string unit;
-
-
-    // Etat du décodage
     std::string status;
-
 };
 
 
-
+// ObdResponseDecoder = decode une reponse brute en utilisant
+// le catalogue PID (formules chargees depuis le JSON),
+// au lieu d'un switch code en dur.
 class ObdResponseDecoder
 {
 
 public:
 
-
-    static DecodedParameter decode(
-        const std::vector<uint8_t>& response
+    // Le decoder a besoin du catalogue pour savoir comment
+    // interpreter chaque PID.
+    explicit ObdResponseDecoder(
+        const PidCatalog& catalog
     );
 
+
+    DecodedParameter decode(
+        const std::vector<uint8_t>& response
+    ) const;
 
 
 private:
 
-
-    static DecodedParameter decodeRPM(
-        uint8_t A,
-        uint8_t B
-    );
-
-
-    static DecodedParameter decodeSpeed(
-        uint8_t A
-    );
-
-
-    static DecodedParameter decodeTemperature(
-        uint8_t A
-    );
-
+    const PidCatalog& m_catalog;
 
 };
 
