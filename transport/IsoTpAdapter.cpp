@@ -20,7 +20,7 @@ bool IsoTpAdapter::sendMessage(
 )
 {
 
-    std::cout 
+    std::cout
         << "[ISO-TP] Sending message..."
         << std::endl;
 

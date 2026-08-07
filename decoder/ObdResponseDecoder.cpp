@@ -12,7 +12,7 @@ DecodedParameter ObdResponseDecoder::decode(
     DecodedParameter result;
 
 
-    // Vérification taille minimale
+    // Vérification taille minimale (mode + pid)
     if(response.size() < 3)
     {
         result.status = "INVALID_RESPONSE";
@@ -48,6 +48,7 @@ DecodedParameter ObdResponseDecoder::decode(
 
         case 0x0C:
         {
+            // Besoin de 2 octets de donnees (A et B)
             if(response.size() < 4)
             {
                 result.status = "INVALID_DATA";
@@ -72,6 +73,12 @@ DecodedParameter ObdResponseDecoder::decode(
 
         case 0x0D:
         {
+            // Besoin d'1 octet de donnee (A)
+            if(response.size() < 3)
+            {
+                result.status = "INVALID_DATA";
+                break;
+            }
 
             uint8_t A = response[2];
 
@@ -92,6 +99,12 @@ DecodedParameter ObdResponseDecoder::decode(
 
         case 0x05:
         {
+            // Besoin d'1 octet de donnee (A)
+            if(response.size() < 3)
+            {
+                result.status = "INVALID_DATA";
+                break;
+            }
 
             uint8_t A = response[2];
 

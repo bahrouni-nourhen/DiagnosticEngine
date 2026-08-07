@@ -1,13 +1,16 @@
 #ifndef CANADAPTER_H
 #define CANADAPTER_H
 
-#include "IProtocolAdapter.h"
-
 #include <vector>
 #include <cstdint>
 
 
-class CanAdapter : public IProtocolAdapter
+// CanAdapter = couche transport CAN "brute".
+// Il ne connait AUCUN PID, AUCUNE formule.
+// Il envoie et recoit des octets, c'est tout.
+// (Il joue ici le role d'un connecteur simule, en attendant
+// le vrai VehicleConnector du developpeur 1.)
+class CanAdapter
 {
 
 public:
@@ -17,25 +20,17 @@ public:
 
 
     // Destructeur
-    ~CanAdapter() override;
+    ~CanAdapter();
 
 
-    // Ouverture de la communication CAN
-    bool open() override;
-
-
-    // Fermeture de la communication CAN
-    void close() override;
-
-
-    // Envoi d'une trame CAN
+    // Envoi d'une trame brute (octets purs, sans interpretation)
     bool send(
         const std::vector<uint8_t>& data
-    ) override;
+    );
 
 
-    // Réception d'une trame CAN
-    std::vector<uint8_t> receive() override;
+    // Reception d'une trame brute (octets purs, sans interpretation)
+    std::vector<uint8_t> receive();
 
 
 };
