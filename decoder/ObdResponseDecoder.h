@@ -6,7 +6,7 @@
 #include <cstdint>
 #include <string>
 
-#include "PidCatalog.h"
+#include "../catalog/PidCatalog.h"
 
 
 struct DecodedParameter

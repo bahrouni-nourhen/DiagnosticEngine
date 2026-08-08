@@ -1,5 +1,5 @@
 #include "ObdAdapter.h"
-#include "ObdCommandEncoder.h"
+#include "../encoder/ObdCommandEncoder.h"
 
 #include <iostream>
 

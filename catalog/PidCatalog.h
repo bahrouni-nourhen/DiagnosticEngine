@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 #include <cstdint>
-
+#include "FormulaEvaluator.h"
 
 // Une entree du catalogue = un paramètre OBD-II connu
 // (correspond a un objet du fichier pid_catalog.json)
